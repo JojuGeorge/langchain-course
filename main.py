@@ -1,13 +1,9 @@
-import os
-
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
 from langchain_core.prompts import PromptTemplate
 
 load_dotenv()   # searches for .env file and take all the env vars and load their values into our env
-
-openai_api_key = os.getenv("OPENAI_API_KEY")
 
 information = """
     Elon Reeve Musk (/ˈiːlɒn/ EE-lon; born June 28, 1971) is a businessman and public official known for his leadership of Tesla and SpaceX. Musk has been the wealthiest person in the world since 2025; as of May 2026, Forbes estimates his net worth to be US$788 billion.
@@ -26,8 +22,8 @@ summary_template = """
 prompt = PromptTemplate.from_template(summary_template)
 # final_prompt = prompt.format(info=information)    # becomes a string therefore cannot be used in chain
 
-# llm = ChatOpenAI(model="gpt-4o-mini", api_key=openai_api_key, temperature=0)
-llm = ChatOllama(model='gemma3:270m', temperature=0)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+# llm = ChatOllama(model='gemma3:270m', temperature=0)
 
 # LCEL LangChain Expression Language (chain)
 chain = prompt | llm
