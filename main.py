@@ -2,6 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 from langchain_core.prompts import PromptTemplate
 
 load_dotenv()   # searches for .env file and take all the env vars and load their values into our env
@@ -25,7 +26,8 @@ summary_template = """
 prompt = PromptTemplate.from_template(summary_template)
 # final_prompt = prompt.format(info=information)    # becomes a string therefore cannot be used in chain
 
-llm = ChatOpenAI(model="gpt-4o-mini", api_key=openai_api_key, temperature=0)
+# llm = ChatOpenAI(model="gpt-4o-mini", api_key=openai_api_key, temperature=0)
+llm = ChatOllama(model='gemma3:270m', temperature=0)
 
 # LCEL LangChain Expression Language (chain)
 chain = prompt | llm
