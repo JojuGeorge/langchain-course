@@ -2,25 +2,15 @@ from dotenv import load_dotenv
 from langchain.tools import tool
 from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
-from tavily import TavilyClient
+from langchain_tavily import TavilySearch
 
 load_dotenv()
-
-
-tavily = TavilyClient()
-
-
-@tool
-def job_search(query: str) -> str:
-    """This tool searches for jobs over the internet"""
-    print(f"Searching for {query}")
-    return tavily.search(query=query)
 
 
 llm = ChatOpenAI(model='gpt-4o-mini', temperature=0)
 agent = create_agent(
     model=llm,
-    tools=[job_search],
+    tools=[TavilySearch()],
     system_prompt="You are a helpful assistant"
 )
 
